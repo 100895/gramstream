@@ -1,0 +1,28 @@
+name: Deploy Video Page
+
+on:
+  push:
+    branches:
+      - main  # Ejecuta cuando haya un push a la rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Utiliza un entorno Linux
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Clona tu repositorio
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3  # Instala Node.js si es necesario
+
+      - name: Generate Static Files (si necesitas modificar algo o generar archivos dinámicamente)
+        run: |
+          mkdir -p output
+          cp index.html output/  # Copia el archivo HTML al directorio de despliegue
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output  # Publica el contenido de la carpeta 'output'
