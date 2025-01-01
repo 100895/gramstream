@@ -1,4 +1,4 @@
-name: Deploy Video Page
+name: Deploy Video Pag
 
 on:
   push:
